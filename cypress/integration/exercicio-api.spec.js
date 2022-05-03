@@ -4,7 +4,7 @@ import contrato from '../contracts/usuarios.contract'
 describe('Testes da Funcionalidade Usuários', () => {
 
      it('Deve validar contrato de usuários', () => {
-          cy.request('usuario').then(response =>{
+          cy.request('usuario').then(response => {
                return contrato.validateAsync(response.body)
           })
      });
@@ -21,12 +21,13 @@ describe('Testes da Funcionalidade Usuários', () => {
 
      it('Deve cadastrar um usuário com sucesso', () => {
           let usuario = `Usuario EBAC ${Math.floor(Math.random() * 1000000)}`
+          let email = `${usuario}@qa.com`
           cy.request({
                method: 'POST',
                url: 'usuarios',
                body: {
                     "nome": usuario,
-                    "email": "teste@gmail.com",
+                    "email": email,
                     "password": "teste#$%",
                     "administrador": "true"
                }
@@ -34,7 +35,7 @@ describe('Testes da Funcionalidade Usuários', () => {
                expect(response.body.message).to.equal('Cadastro realizado com sucesso')
                expect(response.status).to.equal(201)
           });
-               
+
      });
 
      it('Deve validar um usuário com email inválido', () => {
@@ -43,7 +44,7 @@ describe('Testes da Funcionalidade Usuários', () => {
                url: 'usuarios',
                body: {
                     "nome": "Daniela Silva",
-                    "email": "danielasilva@xxx.com",
+                    "email": "fulano@qa.com.br",
                     "password": "!!!XXX",
                     "administrador": "true",
                     "_id": "eqQuBFPg7XNFRRha"
@@ -51,7 +52,7 @@ describe('Testes da Funcionalidade Usuários', () => {
 
           }).then((response) => {
                expect(response.status).to.equal(200)
-               expect(response.body.usuarios[7].email).to.equal('danielasilva@yyy.com')
+               expect(response.body.message).to.equal('Este email já está sendo usado')
           });
      });
 
