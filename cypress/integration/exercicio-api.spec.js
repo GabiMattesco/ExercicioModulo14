@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import contrato from '../contracts/usuarios.contract'
+import contrato from '../contracts/usuarios.contracts'
 var faker = require('faker');
 
 
@@ -8,8 +8,7 @@ describe('Testes da Funcionalidade Usuários', () => {
     it('Deve validar contrato de usuários', () => {
         cy.request('usuarios').then(response => {
             return contrato.validateAsync(response.body)
-            url: 'usuarios'
-        })
+          })
     });
 
     it('Deve listar usuários cadastrados', () => {
