@@ -45,7 +45,7 @@ describe('Testes da Funcionalidade Usuários', () => {
             url: 'usuarios',
             body: {
                 "nome": "Bernardo Gomes",
-                "email": "teste@qa.com",
+                "email": "beltrano@qa.com.br",
                 "password": "xxxx",
                 "administrador": "true"                
             }, failOnStatusCode: false
